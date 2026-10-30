@@ -1,6 +1,8 @@
+import admin from './admin';
 import {Hono} from 'hono';import {cors} from 'hono/cors';
 type Env={Bindings:{DB:D1Database;EVIDENCE:R2Bucket}};
 const app=new Hono<Env>();app.use('*',cors({origin:'*'}));
+app.route('/api/admin',admin);
 app.get('/api/health',c=>c.json({ok:true,service:'cerev-api'}));
 app.get('/api/work-orders',async c=>c.json({items:(await c.env.DB.prepare('SELECT * FROM work_orders ORDER BY created_at DESC').all()).results}));
 app.post('/api/work-orders',async c=>{const data=await c.req.json();if(!String(data.title||'').trim())return c.json({error:'Title required'},400);const id=crypto.randomUUID();await c.env.DB.prepare('INSERT INTO work_orders(id,title,description,location,priority) VALUES(?,?,?,?,?)').bind(id,data.title,String(data.description||''),String(data.location||''),String(data.priority||'normal')).run();return c.json({id,status:'submitted'},201)});
