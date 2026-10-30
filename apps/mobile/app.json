@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "name": "CEREV Contractor",
+    "slug": "cerev-contractor",
+    "scheme": "cerev",
+    "plugins": [
+      "expo-router",
+      "expo-image-picker",
+      "expo-notifications"
+    ]
+  }
+}
