@@ -1,0 +1,13 @@
+name = "cerev-api"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "cerev-cmms"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+migrations_dir = "../../db/migrations"
+
+[[r2_buckets]]
+binding = "EVIDENCE"
+bucket_name = "cerev-evidence"
